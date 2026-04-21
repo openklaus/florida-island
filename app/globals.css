@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+:root {
+  --champagne: #F5F0E8;
+  --navy: #1A2744;
+  --coral: #C4735A;
+  --yellow: #E8C547;
+  --blush: #E8C5B0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--champagne);
+  color: var(--navy);
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+}
+
+.font-display {
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+.tracking-resort {
+  letter-spacing: 0.25em;
+}
+
+.tracking-wide-xl {
+  letter-spacing: 0.4em;
+}
+
+/* Stripe decorative element */
+.stripe-bar {
+  display: flex;
+  gap: 4px;
+}
+
+.stripe-bar span {
+  display: block;
+  width: 6px;
+  border-radius: 2px;
+}
+
+/* Product card hover crossfade */
+.product-card .img-clean {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+.product-card .img-lifestyle {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  position: absolute;
+  inset: 0;
+}
+.product-card:hover .img-clean {
+  opacity: 0;
+}
+.product-card:hover .img-lifestyle {
+  opacity: 1;
+}
