@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function Nav() {
@@ -25,10 +26,19 @@ export default function Nav() {
         transition={{ duration: 0.15 }}
       />
       <div className="relative max-w-7xl mx-auto px-8 py-5 flex items-center justify-between">
-        <Link href="/">
-          <span className="font-[family-name:var(--font-display)] text-navy text-xl tracking-[0.25em]">
-            FLORIDA ISLAND
-          </span>
+        <Link href="/" className="block">
+          <Image
+            src="/images/logo.svg"
+            alt="Florida Island"
+            width={180}
+            height={36}
+            className={`h-8 w-auto transition-all duration-200 ${
+              scrolled
+                ? "brightness-0" // dark on light bg
+                : "brightness-0 invert" // white on transparent/dark hero
+            }`}
+            priority
+          />
         </Link>
 
         <div className="flex items-center gap-10">

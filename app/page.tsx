@@ -69,9 +69,14 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <h1 className="font-[family-name:var(--font-display)] text-champagne text-[clamp(60px,12vw,140px)] leading-none mb-4 tracking-[0.15em]">
-            FLORIDA ISLAND
-          </h1>
+          <Image
+            src="/images/logo.svg"
+            alt="Florida Island — Eternal Resort"
+            width={600}
+            height={120}
+            className="h-auto w-[min(580px,85vw)] mx-auto mb-4 brightness-0 invert"
+            priority
+          />
           <p className="text-champagne/60 text-xs md:text-sm tracking-[0.5em] uppercase mb-12">
             ETERNAL RESORT
           </p>
