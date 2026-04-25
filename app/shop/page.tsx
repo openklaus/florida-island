@@ -1,15 +1,39 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import ProductCard from "@/components/ProductCard";
 
 const products = [
-  { name: "Classic Tee", price: "€ 65", category: "tees", lifestyleImage: "/images/ref-4.png" },
-  { name: "Resort Hoodie", price: "€ 135", category: "hoodies", lifestyleImage: "/images/ref-3.png" },
-  { name: "Island Cap", price: "€ 75", category: "caps", lifestyleImage: "/images/ref-1.png" },
+  {
+    name: "Classic Tee",
+    price: "€65",
+    category: "tees",
+    lifestyleImage: "/images/ref-4.png",
+    accentColor: "#1A2744",
+  },
+  {
+    name: "Resort Hoodie",
+    price: "€135",
+    category: "hoodies",
+    lifestyleImage: "/images/ref-3.png",
+    accentColor: "#C4735A",
+  },
+  {
+    name: "Island Cap",
+    price: "€75",
+    category: "caps",
+    lifestyleImage: "/images/ref-1.png",
+    accentColor: "#E8C547",
+  },
 ];
 
 const filters = ["All", "Tees", "Hoodies", "Caps"];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
 
 export default function ShopPage() {
   const [active, setActive] = useState("All");
@@ -20,51 +44,75 @@ export default function ShopPage() {
       : products.filter((p) => p.category === active.toLowerCase());
 
   return (
-    <main className="min-h-screen bg-[#F5F0E8] pt-32 pb-24">
+    <main className="min-h-screen bg-champagne pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
-        <div className="mb-16">
-          <h1
-            className="font-display text-5xl md:text-7xl text-[#1A2744] mb-2"
-            style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.2em" }}
-          >
-            The Collection
+        <motion.div
+          className="mb-16"
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="font-[family-name:var(--font-display)] text-5xl md:text-7xl text-navy mb-2 tracking-[0.2em]">
+            THE COLLECTION
           </h1>
-          <p className="text-xs text-[#1A2744]/40 tracking-[0.4em] uppercase">
+          <p className="text-xs text-navy/40 tracking-[0.4em] uppercase">
             Eternal Resort
           </p>
-        </div>
+        </motion.div>
 
         {/* Filters */}
-        <div className="flex gap-8 mb-14 border-b border-[#1A2744]/10 pb-6">
+        <motion.div
+          className="flex gap-8 mb-14 border-b border-navy/10 pb-6"
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
           {filters.map((f) => (
             <button
               key={f}
               onClick={() => setActive(f)}
-              className={`text-xs tracking-[0.3em] uppercase transition-colors pb-1 ${
+              className={`text-xs tracking-[0.3em] uppercase pb-1 transition-colors duration-200 ${
                 active === f
-                  ? "text-[#1A2744] border-b border-[#1A2744]"
-                  : "text-[#1A2744]/40 hover:text-[#1A2744]/70"
+                  ? "text-navy border-b border-navy"
+                  : "text-navy/40 hover:text-navy/70"
               }`}
             >
               {f}
             </button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Product Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {filtered.map((p) => (
-            <ProductCard key={p.name} {...p} large />
+          {filtered.map((p, i) => (
+            <motion.div
+              key={p.name}
+              initial="hidden"
+              animate="visible"
+              variants={fadeUp}
+              transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
+            >
+              <ProductCard {...p} />
+            </motion.div>
           ))}
         </div>
 
-        {/* Coming soon note */}
-        <div className="mt-24 text-center">
-          <p className="text-xs text-[#1A2744]/30 tracking-[0.4em] uppercase">
+        {/* Coming soon */}
+        <motion.div
+          className="mt-24 text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          transition={{ duration: 0.5 }}
+        >
+          <p className="text-xs text-navy/30 tracking-[0.4em] uppercase">
             More pieces dropping soon
           </p>
-        </div>
+        </motion.div>
       </div>
     </main>
   );

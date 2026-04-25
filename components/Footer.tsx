@@ -1,18 +1,15 @@
 export default function Footer() {
   return (
-    <footer className="bg-[#1A2744] text-[#F5F0E8] py-12 px-6">
+    <footer className="bg-navy text-champagne py-10 px-8">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-        <span
-          className="font-display text-2xl tracking-resort"
-          style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.25em" }}
-        >
-          Florida Island
+        <span className="font-[family-name:var(--font-display)] text-lg tracking-[0.25em]">
+          FLORIDA ISLAND
         </span>
-        <div className="text-xs tracking-widest uppercase opacity-60 text-center">
-          <p>Print-on-demand. Ships worldwide.</p>
-        </div>
-        <p className="text-xs opacity-40 tracking-wider">
-          © 2025 Florida Island
+        <p className="text-xs tracking-[0.3em] uppercase opacity-50">
+          Eternal Resort
+        </p>
+        <p className="text-xs opacity-30 tracking-wider">
+          &copy; 2026 Florida Island
         </p>
       </div>
     </footer>

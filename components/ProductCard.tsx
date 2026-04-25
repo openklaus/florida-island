@@ -2,37 +2,56 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface ProductCardProps {
   name: string;
   price: string;
   lifestyleImage: string;
+  accentColor?: string;
   large?: boolean;
+  category?: string;
 }
 
-export default function ProductCard({ name, price, lifestyleImage, large }: ProductCardProps) {
+const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
+
+export default function ProductCard({
+  name,
+  price,
+  lifestyleImage,
+  accentColor = "#1A2744",
+}: ProductCardProps) {
   return (
     <Link href="/shop" className="group block">
-      <div className={`product-card relative overflow-hidden bg-[#EDE8DF] ${large ? "aspect-[3/4]" : "aspect-[3/4]"}`}>
-        {/* Clean placeholder */}
-        <div className="img-clean absolute inset-0 flex flex-col items-center justify-center bg-[#EDE8DF]">
-          <div className="w-16 h-16 mb-4 opacity-20">
-            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="8" y="16" width="48" height="36" rx="2" stroke="#1A2744" strokeWidth="2"/>
-              <path d="M8 28h48" stroke="#1A2744" strokeWidth="2"/>
-              <circle cx="32" cy="40" r="4" stroke="#1A2744" strokeWidth="2"/>
-            </svg>
-          </div>
-          <span
-            className="font-display text-lg tracking-resort text-[#1A2744]/40"
-            style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.25em" }}
-          >
-            {name}
+      <motion.div
+        className="relative overflow-hidden aspect-[3/4] bg-[#EDE8DF]"
+        initial="rest"
+        whileHover="hover"
+        animate="rest"
+      >
+        {/* Layer 1: Clean placeholder with product name */}
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center bg-[#EDE8DF]"
+          variants={{
+            rest: { opacity: 1 },
+            hover: { opacity: 0 },
+          }}
+          transition={{ duration: 0.4, ease: easeOut }}
+        >
+          <span className="font-[family-name:var(--font-display)] text-[clamp(1.5rem,4vw,2.5rem)] tracking-[0.25em] text-navy/20 select-none">
+            {name.toUpperCase()}
           </span>
-        </div>
+        </motion.div>
 
-        {/* Lifestyle image (shown on hover) */}
-        <div className="img-lifestyle">
+        {/* Layer 2: Lifestyle image */}
+        <motion.div
+          className="absolute inset-0"
+          variants={{
+            rest: { opacity: 0 },
+            hover: { opacity: 1 },
+          }}
+          transition={{ duration: 0.4, ease: easeOut }}
+        >
           <Image
             src={lifestyleImage}
             alt={name}
@@ -40,24 +59,20 @@ export default function ProductCard({ name, price, lifestyleImage, large }: Prod
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 33vw"
           />
-        </div>
+        </motion.div>
 
-        {/* Stripe accent bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 flex">
-          <div className="flex-1 bg-[#1A2744]" />
-          <div className="flex-1 bg-[#C4735A]" />
-          <div className="flex-1 bg-[#E8C547]" />
-        </div>
-      </div>
+        {/* Bottom stripe accent */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-[3px]"
+          style={{ backgroundColor: accentColor }}
+        />
+      </motion.div>
 
       <div className="pt-4">
-        <p
-          className="font-display text-base tracking-resort text-[#1A2744]"
-          style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.2em" }}
-        >
-          {name}
+        <p className="font-[family-name:var(--font-display)] text-base tracking-[0.2em] text-navy">
+          {name.toUpperCase()}
         </p>
-        <p className="text-sm text-[#1A2744]/60 mt-1 tracking-wider">{price}</p>
+        <p className="text-sm text-navy/50 mt-1 tracking-wider">{price}</p>
       </div>
     </Link>
   );
